@@ -26,7 +26,7 @@ const UpdateUser = () => {
 
     const submitHandler = (e) => {
         e.preventDefault()
-        axios.put("http://crud-app-mern-api-nine.vercel.app/updateUser/" + id, { name, email, age })
+        axios.put("https://crud-app-mern-api-nine.vercel.app/updateUser/" + id, { name, email, age })
             .then(result => {
                 console.log(result)
                 navigate('/')

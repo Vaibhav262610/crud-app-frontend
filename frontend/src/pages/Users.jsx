@@ -6,10 +6,9 @@ const Users = () => {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:3001')
+        axios.get('https://crud-app-mern-api-nine.vercel.app')
             .then(result => {
                 setUsers(result.data)
-
             }
             )
             .catch(err => console.log(err)
@@ -18,7 +17,7 @@ const Users = () => {
     // console.log(users);
 
     const deleteHandler = (id) => {
-        axios.delete("http://crud-app-mern-api-nine.vercel.app/deleteUser/ " + id)
+        axios.delete("https://crud-app-mern-api-nine.vercel.app/deleteUser/ " + id)
             .then(res =>
                 console.log(res)
             )

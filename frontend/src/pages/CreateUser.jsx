@@ -13,7 +13,7 @@ const CreateUser = () => {
 
     const submitHandler = (e) => {
         e.preventDefault()
-        axios.post("http://localhost:3001/create-user", { name, email, age })
+        axios.post("http://crud-app-mern-api-nine.vercel.app/create-user", { name, email, age })
             .then(result => {
                 console.log(result)
                 navigate('/')

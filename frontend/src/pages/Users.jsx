@@ -18,7 +18,7 @@ const Users = () => {
     // console.log(users);
 
     const deleteHandler = (id) => {
-        axios.delete("http://localhost:3001/deleteUser/" + id)
+        axios.delete("http://crud-app-mern-api-nine.vercel.app/deleteUser/ " + id)
             .then(res =>
                 console.log(res)
             )

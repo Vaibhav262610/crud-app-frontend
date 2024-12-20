@@ -3,15 +3,14 @@ const mongoose = require('mongoose')
 const cors = require('cors')
 const UserModel = require('./models/UsersModel')
 const app = express()
-app.use(cors(
-    {
-        origin: ["https://crud-app-mern-delta.vercel.app"],
-        methods: ['POST', 'GET', 'PUT', 'DELETE'],
-        credentials: true
-    }
-))
+app.use(cors())
 
-mongoose.connect('mongodb://127.0.0.1:27017/crud')
+const MONGO_URI = process.env.MONGO_URI
+
+mongoose.connect(MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
 app.use(express.json())
 
 app.post('/create-user', (req, res) => {

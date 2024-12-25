@@ -12,17 +12,20 @@ const CreateUser = () => {
 
 
     const submitHandler = (e) => {
-        e.preventDefault()
-        axios.post("http://crud-app-mern-api-nine.vercel.app/create-user", { name, email, age })
+        e.preventDefault();
+        if (!name || !email || !age) {
+            alert("All fields are required!");
+            return;
+        }
+        axios.post("http://localhost:3001/create-user", { name, email, age })
             .then(result => {
-                console.log(result)
-                navigate('/')
-            }
-            )
-            .catch(err => console.log(err)
-            )
+                console.log("THE DATA IS: ", result);
+                navigate('/');
+            })
+            .catch(err => console.log(err));
+    };
 
-    }
+
     return (
         <div className="flex items-center justify-center p-12 rounded-lg bg-gray-100">
             <div className="w-full bg-white p-6 rounded-lg shadow-md">

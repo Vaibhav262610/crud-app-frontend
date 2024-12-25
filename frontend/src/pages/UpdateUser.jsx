@@ -13,28 +13,28 @@ const UpdateUser = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        axios.get('http://localhost:3001/getUser/' + id)
+        axios
+            .get(`http://localhost:3001/getUser/${id}`) // Correct URL
             .then(result => {
                 console.log(result.data);
-                setName(result.data.name)
-                setEmail(result.data.email)
-                setAge(result.data.age)
-
+                setName(result.data.name);
+                setEmail(result.data.email);
+                setAge(result.data.age);
             })
-            .catch(err => console.log(err))
-    })
+            .catch(err => console.error("Error fetching user data:", err));
+    }, [id]); // Dependency array ensures this runs once on mount and when `id` changes
 
+    // Update user data
     const submitHandler = (e) => {
-        e.preventDefault()
-        axios.put("https://crud-app-mern-api-nine.vercel.app/updateUser/" + id, { name, email, age })
+        e.preventDefault();
+        axios
+            .put(`http://localhost:3001/updateUser/${id}`, { name, email, age }) // Correct URL
             .then(result => {
-                console.log(result)
-                navigate('/')
-            }
-            )
-            .catch(err => console.log(err)
-            )
-    }
+                console.log("User updated successfully:", result.data);
+                navigate('/'); // Navigate to home or user list
+            })
+            .catch(err => console.error("Error updating user:", err));
+    };
 
 
     return (

@@ -4,13 +4,13 @@ const cors = require('cors')
 const UserModel = require('./models/UsersModel')
 const app = express()
 app.use(cors())
+require('dotenv').config();
 
 const MONGO_URI = process.env.MONGO_URI
 
-mongoose.connect(MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-})
+mongoose.connect(MONGO_URI)
+    .then(() => console.log('Connected to MongoDB'))
+    .catch(err => console.error('Failed to connect to MongoDB:', err));
 app.use(express.json())
 
 app.post('/create-user', (req, res) => {

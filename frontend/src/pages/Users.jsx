@@ -1,29 +1,35 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const Users = () => {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        axios.get('https://crud-app-mern-api-nine.vercel.app')
+        axios.get('http://localhost:3001') // Ensure this matches your backend URL
             .then(result => {
-                setUsers(result.data)
-            }
-            )
-            .catch(err => console.log(err)
-            )
-    })
-    // console.log(users);
+                setUsers(result.data); // Set the fetched users in state
+            })
+            .catch(err => {
+                console.error("Error fetching users:", err);
+            });
+    }, []); // Run only once when the component mounts
+
+    console.log(users);
 
     const deleteHandler = (id) => {
-        axios.delete("https://crud-app-mern-api-nine.vercel.app/deleteUser/ " + id)
-            .then(res =>
-                console.log(res)
-            )
-            .catch(err => console.log(err)
-            )
-    }
+        axios
+            .delete(`http://localhost:3001/deleteUser/${id}`) // Correct URL
+            .then((res) => {
+                console.log("User deleted:", res.data);
+                // Optionally update the UI by filtering out the deleted user
+                setUsers((prevUsers) => prevUsers.filter((user) => user._id !== id));
+            })
+            .catch((err) => console.error("Error deleting user:", err));
+    };
+
+
+
     return (
         <div className="flex flex-col justify-center p-12 rounded-lg items-center bg-gray-100">
             <div>
@@ -62,7 +68,7 @@ const Users = () => {
                                     <Link to={`/update/${row._id}`} className="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600 transition duration-300">
                                         Update
                                     </Link>
-                                    <button onClick={(e) => deleteHandler(row._id)} className="bg-red-500 text-white py-1 px-3 rounded ml-2 hover:bg-red-600 transition duration-300">
+                                    <button onClick={() => deleteHandler(row._id)} className="bg-red-500 text-white py-1 px-3 rounded ml-2 hover:bg-red-600 transition duration-300">
                                         Delete
                                     </button>
                                 </td>
